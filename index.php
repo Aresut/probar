@@ -1,5 +1,5 @@
 <?php
-session_name('demoForm');
+session_name('responsiveForm');
 session_start();
 
 // Directorio Raíz de la app
@@ -7,17 +7,14 @@ session_start();
 $root = '';
 
 // números de captcha
-$_SESSION['numero_a'] = mt_rand(1,9);
-$_SESSION['numero_b'] = mt_rand(1,9);
+$_SESSION['inicia_form'] = true;
 
 if(!empty($_SESSION)){
 	// Incluimos el template engine
 	include('includes/templateEngine.inc.php');
 
 	// Cargamos la plantilla
-	$twig->display('default_layout.html',array(
-		"numero_a" => $_SESSION['numero_a'],
-		"numero_b" => $_SESSION['numero_b'],
+	$twig->display('index_form.html',array(
 		"titulo" => "Formulario responsivo en pasos",
 		"piePagina" => "<p>cazaresluis.com | &copy; 2013 </p>"
 	));

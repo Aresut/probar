@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>{{ titulo }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Formulario Responsivo por pasos" />
+    <meta name="description" content="{{ titulo }}" />
     <meta name="author" content="Luis Fernando Cázares Bulbarela" />
     
     <link rel="stylesheet" href="css/default_layout.css">
@@ -22,27 +22,22 @@
   </head>
 
   <body>
-    <div class="container">
-    {% block modalDialogs %}{% endblock%}
-      <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <div class="brand">{{ titulo }}</div>
-        </div>
+  <div class="container">
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <div class="brand">{{ titulo }}</div>
       </div>
-      
-      {% block contenidos %}
-
-      {% endblock %}
-      
-      <hr>
-
-      <footer>
-          {{ piePagina|raw }}
-      </footer>
-
     </div>
 
-    {% block javascripts %}{% endblock %}
+    {% block barraNavegacion %} {% endblock %}
 
+    {% block contenidos %} {% endblock %}
+
+    <hr>
+    <footer>
+      {{ piePagina|raw }}
+    </footer>
+  </div>
+    {% block javascripts %} {% endblock %}
   </body>
 </html>
