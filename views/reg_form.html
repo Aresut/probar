@@ -1,0 +1,86 @@
+{% extends 'default_layout.html'%}
+
+{% block contenidos %}
+<ul class="breadcrumb">
+  <li><a href="index.php">Inicio</a> <span class="divider">/</span></li>
+  <li id="paso_a" class="negritas">Datos personales<span class="divider">/</span></li>
+  <li id="paso_b">Domicilio <span class="divider">/</span></li>
+  <li id="paso_c">Confirmación<span class="divider">/</span></li>
+</ul>
+
+<div class="container centrar-texto">
+  <div class="alert alert-success">
+  <h4>Opción seleccionada: </h4>
+  </div>
+</div>
+
+<div class="container" id="cont_formularios">
+	<div id="form_paso_a">
+		<h4>Datos personales</h4>
+		<hr/>
+		<a id="go_paso_b" href="" class="btn btn-info btn-mini">Continuar</a>
+	</div>
+	<div id="form_paso_b" class="hide">
+		<h4>Domicilio</h4>
+		<hr/>
+		<a id="back_paso_a" href="" class="btn btn-info btn-mini">Regresar</a> <a id="go_paso_c" href="" class="btn btn-info btn-mini">Continuar</a>
+	</div>
+	<div id="form_paso_c" class="hide">
+		<h4>Confirmación</h4>
+		<hr/>
+		<a id="back_paso_b" href="" class="btn btn-info btn-mini">Regresar</a> <a id="go_terminar" href="" class="btn btn-info btn-mini">Terminar</a>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+$(function(){
+	// detectar que botón se esta accionando
+	$('body').on('click','#cont_formularios a',function(elemento){
+		elemento.preventDefault();
+
+		mostrar = $(this).attr('id');
+		
+		// Seleccionar la sección a mostrar
+		if(mostrar == 'go_paso_b'){
+			$('#form_paso_a').hide();
+			$('#form_paso_b').show();
+		}
+		else if(mostrar == 'back_paso_a'){
+			$('#form_paso_b').hide();
+			$('#form_paso_a').show();
+		}
+		else if(mostrar == 'go_paso_c'){
+			$('#form_paso_c').show();
+			$('#form_paso_b').hide();
+		}
+		else if (mostrar == 'back_paso_b') {
+			$('#form_paso_c').hide();
+			$('#form_paso_b').show();
+		}
+	});
+
+	// Formulario datos generales y de empresa
+	$('#form_a').validate({
+		submitHandler: function(){
+
+		var datos_formulario_a = $('#form_a').serialize();
+
+		alert(datos_formulario_a);
+
+		return false;
+		},
+		errorPlacement: function(error, element) {
+			error.appendTo(element.parent().append());
+		}
+	});
+});
+    
+</script>
+  
+
+{% endblock %}
