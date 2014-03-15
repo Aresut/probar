@@ -18,16 +18,103 @@
 	<div id="form_paso_a">
 		<h4>Datos personales</h4>
 		<hr/>
-		<a id="go_paso_b" href="" class="btn btn-info btn-mini">Continuar</a>
+		<form action="" method="" id="form_a" name="form_a">
+			<fieldset id="info_personal">
+				<div class="row">
+			        <div class="span4">
+			          <label class="control-label" for="reg_nombre">Nombre</label>
+			          <div class="controls">
+			            <input class="{required:true,rangelength: [3, 80]} span3" id="reg_nombre" name="reg_nombre" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_paterno">Apellido Paterno</label>
+			          <div class="controls">
+			            <input class="{required:true,rangelength: [3, 80]} span3" id="reg_paterno" name="reg_paterno" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_materno">Apellido Materno</label>
+			          <div class="controls">
+			            <span></span>
+			            <input class="{required:true,rangelength: [3, 80]} span3" id="reg_materno" name="reg_materno" type="text" required />
+			          </div>
+			        </div>
+			      </div>
+			</fieldset>
+			<fieldset id="botonera_personales">
+				<button type="submit" class="btn btn-info btn-mini" id="btn-personales">Continuar</button>
+			</fieldset>
+		</form>
 	</div>
 	<div id="form_paso_b" class="hide">
 		<h4>Domicilio</h4>
 		<hr/>
-		<a id="back_paso_a" href="" class="btn btn-info btn-mini">Regresar</a> <a id="go_paso_c" href="" class="btn btn-info btn-mini">Continuar</a>
+		<form action="" method="" id="form_b" name="form_b">
+			<fieldset id="info_personal">
+				<div class="row">
+			        <div class="span4">
+			          <label class="control-label" for="reg_calle">Calle y número</label>
+			          <div class="controls">
+			            <input class="{required:true,rangelength: [3, 20]} span3" id="reg_calle" name="reg_calle" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_colonia">Colonia</label>
+			          <div class="controls">
+			            <input class="{required:true,rangelength: [3, 120]} span3" id="reg_colonia" name="reg_colonia" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_ciudad">Ciudad</label>
+			          <div class="controls">
+			            <span></span>
+			            <input class="{required:true,rangelength: [3, 120]} span3" id="reg_ciudad" name="reg_ciudad" type="text" required />
+			          </div>
+			        </div>
+		      	</div>
+		      	<div class="row">
+			        <div class="span4">
+			          <label class="control-label" for="reg_codigo_postal">Código Postal</label>
+			          <div class="controls">
+			            <input class="{required:true,number:true} span3" id="reg_codigo_postal" name="reg_codigo_postal" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_delegacion">Delegación</label>
+			          <div class="controls">
+			            <input class="{required:true,rangelength: [3, 120]} span3" id="reg_delegacion" name="reg_delegacion" type="text" required />
+			          </div>
+			        </div>
+			        <div class="span4">
+			          <label class="control-label" for="reg_estado">Estado</label>
+			          <div class="controls">
+			            <span></span>
+			            <input class="{required:true,rangelength: [3, 120]} span3" id="reg_estado" name="reg_estado" type="text" required />
+			          </div>
+			        </div>
+		      	</div>
+			</fieldset>
+			<fieldset id="botonera_domicilio">
+				<a id="back_paso_a" href="" class="btn btn-info btn-mini">Regresar</a>
+				<button type="submit" class="btn btn-info btn-mini" id="btn-domicilio">Continuar</button>
+			</fieldset>
+		</form>
 	</div>
 	<div id="form_paso_c" class="hide">
 		<h4>Confirmación</h4>
 		<hr/>
+		<ul>
+			<li id="txt_Nombre"></li>
+			<li id="txt_Paterno"></li>
+			<li id="txt_Materno"></li>
+			<li id="txt_Calle"></li>
+			<li id="txt_Colonia"></li>
+			<li id="txt_Ciudad"></li>
+			<li id="txt_CPostal"></li>
+			<li id="txt_Delegacion"></li>
+			<li id="txt_Estado"></li>
+		</ul>
 		<a id="back_paso_b" href="" class="btn btn-info btn-mini">Regresar</a> <a id="go_terminar" href="" class="btn btn-info btn-mini">Terminar</a>
 	</div>
 </div>
@@ -46,31 +133,35 @@ $(function(){
 		mostrar = $(this).attr('id');
 		
 		// Seleccionar la sección a mostrar
-		if(mostrar == 'go_paso_b'){
-			$('#form_paso_a').hide();
-			$('#form_paso_b').show();
-		}
-		else if(mostrar == 'back_paso_a'){
+		if(mostrar == 'back_paso_a'){
 			$('#form_paso_b').hide();
 			$('#form_paso_a').show();
-		}
-		else if(mostrar == 'go_paso_c'){
-			$('#form_paso_c').show();
-			$('#form_paso_b').hide();
+
+			$('#paso_b').removeClass('negritas');
+			$('#paso_a').addClass('negritas');
 		}
 		else if (mostrar == 'back_paso_b') {
 			$('#form_paso_c').hide();
 			$('#form_paso_b').show();
+
+			$('#paso_c').removeClass('negritas');
+			$('#paso_b').addClass('negritas');
+		}
+		else if (mostrar == 'go_terminar'){
+			var dataForm = $('#form_a, #form_b').serialize();
+
+			alert(dataForm);
 		}
 	});
 
-	// Formulario datos generales y de empresa
+	// Formulario datos personales
 	$('#form_a').validate({
 		submitHandler: function(){
 
-		var datos_formulario_a = $('#form_a').serialize();
+		$('#form_paso_a').hide();
+		$('#form_paso_b').show();
 
-		alert(datos_formulario_a);
+		$('#paso_b').addClass('negritas');
 
 		return false;
 		},
@@ -78,6 +169,50 @@ $(function(){
 			error.appendTo(element.parent().append());
 		}
 	});
+
+	$('#form_b').validate({
+		submitHandler: function(){
+
+			// Serilizamos formularios
+			var datosForm = $('#form_a, #form_b').serialize();
+
+			// Cargamos los datos de los campos a variables
+			nombre 		= $('#reg_nombre').val();
+			paterno 	= $('#reg_paterno').val();
+			materno 	= $('#reg_materno').val();
+			calle 		= $('#reg_calle').val();
+			colonia 	= $('#reg_colonia').val();
+			ciudad 		= $('#reg_ciudad').val();
+			postal 		= $('#reg_codigo_postal').val();
+			delegacion 	= $('#reg_delegacion').val();
+			estado		= $('#reg_estado').val();
+
+
+
+			// llenamos la lista en pantalla
+			$('#txt_Nombre').text(nombre);
+			$('#txt_Paterno').text(paterno);
+			$('#txt_Materno').text(materno);
+			$('#txt_Calle').text(calle);
+			$('#txt_Colonia').text(colonia);
+			$('#txt_Ciudad').text(ciudad);
+			$('#txt_CPostal').text(postal);
+			$('#txt_Delegacion').text(delegacion);
+			$('#txt_Estado').text(estado);
+
+			// mostramos y ocultamos areas
+			$('#form_paso_c').show();
+			$('#form_paso_b').hide();
+
+			$('#paso_c').addClass('negritas');
+
+			return false;
+		},
+		errorPlacement: function(error, element) {
+			error.appendTo(element.parent().append());
+		}
+	});
+
 });
     
 </script>
